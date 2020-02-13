@@ -20,6 +20,7 @@ https://github.com/dawoshi/Ant_Forest
    c、音量上键可停止脚本。
    d、大致过程如日志所示：
    ![image](https://github.com/dawoshi/Ant_Forest/blob/master/pic/111.png)
+   ![video](https://github.com/dawoshi/Ant_Forest/blob/master/video.mp4)
    
 
 2、下载源码和autojs app
