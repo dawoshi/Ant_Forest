@@ -153,7 +153,6 @@ function Friends()
             }
         }
     }
-    log("搜取好友能量结束");
 }
 
  // 收取自己的能量
@@ -191,7 +190,7 @@ function StartAll(){
     log("enterAntForest ok");
     sleep(2000);
     My();
-    sleep(2000);
+    sleep(1000);
     Friends();
     sleep(1000);
     ClickClose();
@@ -204,7 +203,7 @@ function main(){
   swipe(500,1800,500,500,100);
   log("swipe over");
   sleep(1000);
-  gesture(1000, [540,1425], [250,1700],[56,1700],[540,20],[840,17]);
+  gesture(1000, [540,1425], [250,1700],[560,1700],[540,2020],[840,1700]);
   log("gesture over");
   sleep(1000);
   log("唤醒完毕");
