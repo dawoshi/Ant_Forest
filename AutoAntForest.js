@@ -11,10 +11,10 @@ function CloseApp() {
         textMatches(/(.*确.*|.*定.*)/).findOne().click();
         log(app.getAppName(packageName) + "应用已被关闭");
         sleep(1000);
-        back();
+        exit();
     } else {
         log(app.getAppName(packageName) + "应用不能被正常关闭或不在后台运行");
-        back();
+        exit();
     }
 }
 
@@ -191,7 +191,7 @@ function StartAll(){
     log("enterAntForest ok");
     sleep(2000);
     My();
-    sleep(1000);
+    sleep(2000);
     Friends();
     sleep(1000);
     ClickClose();
@@ -233,6 +233,7 @@ if(!requestScreenCapture()){
 } else {
     log("截图功能检查成功");
 }
+
 main()
 setInterval(main,interval);
 
