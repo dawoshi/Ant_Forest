@@ -189,23 +189,15 @@ function StartAll(){
     StartAlipay();
     EnterAntForest();
     log("enterAntForest ok");
-    // var dates = new Date();
-    // if((dates.getHours()<12 &&dates.getHours()>7)||
-    //     (dates.getHours()>16&&dates.getHours()<18)){
-    //     var automator = require("./Automator.js");
-    //     My(automator);
-    //     sleep(1000);
-    // }
-    var automator = require("./Automator.js");
     sleep(2000);
-    My(automator);
+    My();
     sleep(1000);
     Friends();
     sleep(1000);
     ClickClose();
 }
 
-function main1(){
+function main(){
   log("唤醒设备");
   device.wakeUp();
   sleep(1000);
@@ -218,22 +210,21 @@ function main1(){
   log("唤醒完毕");
   log("start antForest");
   StartAll();
-  //ClickClose();
 }
 
 //程序从这里开始
 auto();
-// alert("需开启无障碍服务、通知栏权限，音量上键可中止脚本");
-// alert("注意！请核对'小手'图片存放位置，可在findImg()函数中修改，如果图片跟脚本是同一个目录，就不用改。默认: icon.jpg");
+alert("需开启无障碍服务、通知栏权限，音量上键可中止脚本");
+alert("注意！请核对'小手'图片存放位置，可在findImg()函数中修改，如果图片跟脚本是同一个目录，就不用改。默认: icon.jpg");
 
-// console.show();
-// var interval = 500000; 
-// interval = console.rawInput("请输入摘取间隔时间(s), 如50000:");
-// console.log(">> 间隔时间: "+interval);
-// sleep(1000);
-// console.hide();
-// toast("Ready Go .....");
-// sleep(1000)
+console.show();
+var interval = 500000; 
+interval = console.rawInput("请输入摘取间隔时间(s), 如50000:");
+console.log(">> 间隔时间: "+interval);
+sleep(1000);
+console.hide();
+toast("Ready Go .....");
+sleep(500)
 log("检查截图功能");
 if(!requestScreenCapture()){
     toast("请求截图失败");
@@ -242,9 +233,8 @@ if(!requestScreenCapture()){
 } else {
     log("截图功能检查成功");
 }
-
-main1();
-// setInterval(main1,interval);
+main()
+setInterval(main,interval);
 
 threads.start(function(){
     //在子线程中调用observeKey()从而使按键事件处理在子线程执行
