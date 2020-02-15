@@ -107,9 +107,9 @@ function Friends()
     sleep(1000);
     toast("收集好友能量");
     var skip_cnt = 0;
-    while((!className("android.view.View").text("邀请").exists()) 
-    && (skip_cnt<=8))
-    {
+    var invitation = 0;
+    
+    do{
         if(className("android.view.View").text("查看更多好友").exists()){
             className("android.view.View").text("查看更多好友").findOne().click();
         }
@@ -145,14 +145,14 @@ function Friends()
             toast("上滑");
             swipe(500,1800,500,500,500);
             skip_cnt += 1;
-            if(skip_cnt > 8)
-            {
-                toast("结束退出！");
-                log("搜取好友能量结束");
-                ClickClose();
-            }
         }
-    }
+        if(className("android.view.View").text("邀请").exists()){
+            invitation++;
+        }
+    }while(skip_cnt<15&&(invitation<3));
+    toast("结束退出！");
+    log("搜取好友能量结束");
+    ClickClose();
 }
 
  // 收取自己的能量
