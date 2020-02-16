@@ -188,11 +188,11 @@ function StartAll(){
     StartAlipay();
     EnterAntForest();
     log("enterAntForest ok");
-    sleep(2000);
+    sleep(1000);
     My();
     sleep(1000);
     Friends();
-    sleep(1000);
+    sleep(2000);
     ClickClose();
 }
 
