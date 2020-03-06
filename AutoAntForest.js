@@ -1,23 +1,6 @@
-var MODE=0;
-
-
-function CloseApp() {
-    let packageName = currentPackage();
-    app.openAppSetting(packageName);
-    text(app.getAppName(packageName)).waitFor();
-    let is_sure = textMatches(/(.*强.*|.*停.*|.*结.*|.*行.*)/).findOne();
-    if (is_sure.enabled()) {
-        textMatches(/(.*强.*|.*停.*|.*结.*|.*行.*)/).findOne().click();
-        textMatches(/(.*确.*|.*定.*)/).findOne().click();
-        log(app.getAppName(packageName) + "应用已被关闭");
-        sleep(1000);
-        exit();
-    } else {
-        log(app.getAppName(packageName) + "应用不能被正常关闭或不在后台运行");
-        exit();
-    }
-}
-
+/**
+ *  2020/03/06
+ * */
 const EnterAntForest=function(){
     ClearPopup();
     ClickClose();
@@ -47,13 +30,8 @@ function FindImg()
     }
     toast("截图完成!");
     var icon = images.read("icon.jpg");
-    var p = findImage(img, icon);
-    if(p){
-        toast("找到啦:" + p);
-    }else{
-        toast("没找到");
-    }
-    return p;
+    var points = images.matchTemplate(img,icon,{threshold:0.7}).points;
+    return points;
 }
 
 // 关闭提醒弹窗
@@ -116,40 +94,40 @@ function Friends()
         if(id("tab_description").className("android.widget.TextView").text("首页").exists()){
             EnterAntForest();
         }
-        var p = FindImg();
+        var points = FindImg();
         sleep(500);
-        if(p)
+        if(points)
         {
             toast("找到");
-            click(p.x-500, p.y+50);
-            var cnt = 0;
-            while(cnt<5)
-            {
-                if(className("android.widget.Button").text("浇水").exists())
+            points.forEach(point =>{
+                click(point.x-500, point.y+50);
+                var cnt = 0;
+                while(cnt<5)
                 {
-                    FriendsPower();
-                    back();
-                    sleep(1000);
-                    break;
+                    if(className("android.widget.Button").text("浇水").exists())
+                    {
+                        FriendsPower();
+                        back();
+                        sleep(1000);
+                        break;
+                    }
+                    else
+                    {
+                        cnt ++;
+                        sleep(500);
+                    }
                 }
-                else
-                {
-                    cnt ++;
-                    sleep(500);
-                }
-            }
+            });
             skip_cnt = 0;
-            }
-        else
-        {
-            toast("上滑");
-            swipe(500,1800,500,500,500);
-            skip_cnt += 1;
         }
+        toast("上滑");
+        scrollDown();
+        skip_cnt += 1;
         if(className("android.view.View").text("邀请").exists()){
             invitation++;
         }
-    }while(skip_cnt<15&&(invitation<3));
+    }while(invitation<2);
+    //skip_cnt<15&&(
     toast("结束退出！");
     log("搜取好友能量结束");
     ClickClose();
@@ -178,6 +156,7 @@ function Friends()
 function My(){
     if(id("tab_description").className("android.widget.TextView").text("首页").exists()){
         log("进入蚂蚁森林");
+        id("tab_description").className("android.widget.TextView").text("首页").findOne.click();
         EnterAntForest();
     }
     myPowers();
@@ -188,11 +167,11 @@ function StartAll(){
     StartAlipay();
     EnterAntForest();
     log("enterAntForest ok");
-    sleep(1000);
+    sleep(2000);
     My();
     sleep(1000);
     Friends();
-    sleep(2000);
+    sleep(1000);
     ClickClose();
 }
 
@@ -217,8 +196,8 @@ alert("需开启无障碍服务、通知栏权限，音量上键可中止脚本"
 alert("注意！请核对'小手'图片存放位置，可在findImg()函数中修改，如果图片跟脚本是同一个目录，就不用改。默认: icon.jpg");
 
 console.show();
-var interval = 500000; 
-interval = console.rawInput("请输入摘取间隔时间(s), 如50000:");
+var interval = 30000; 
+interval = console.rawInput("请输入摘取间隔时间(s), 如30000:");
 console.log(">> 间隔时间: "+interval);
 sleep(1000);
 console.hide();
